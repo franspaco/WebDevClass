@@ -5,7 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-
+var indexRoutes = require('./app_server/routes/index');
+var gasolineriasRoutes = require('./app_server/routes/gasolineras');
+var db = require('./db');
 //var routes = require('./app_server/routes/index');
 //var users = require('./app_server/routes/users');
 
@@ -16,6 +18,15 @@ app.use(function(req, res, next) {
   next();
 });
 
+
+db.connect( function (err) {
+    if(err){
+        console.log('Unable to connect to MySQL');
+        process.exit(1);
+    }else{
+        console.log('Successful connection to MySQL');
+    }
+});
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
@@ -23,6 +34,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.use('/', indexRoutes);
+app.use('/gasolineras', gasolineriasRoutes);
 
 //app.use('/', routes);
 //app.use('/users', users);
