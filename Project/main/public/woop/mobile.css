@@ -1,0 +1,54 @@
+@media all and (max-width: 481px) {
+
+    html, body {
+        height: 100%;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        font-family: 'Arial', serif;
+        background-color: rgb(255, 230, 155);
+    }
+
+    header {
+        height: 26vw;
+    }
+
+    #main {
+        -webkit-flex-flow: column wrap;
+        flex-flow: column wrap;
+    }
+
+    nav {
+        -webkit-order: 9;
+        order: 9;
+    }
+
+    .navigation {
+        -webkit-flex-flow: column wrap;
+        flex-flow: column wrap;
+        padding: 0;
+    }
+
+    .navigation a {
+        text-align: center;
+        padding: 10px;
+        border-top: 1px solid rgba(255,255,255,0.3);
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .navigation li:last-of-type a {
+        border-bottom: none;
+    }
+
+    .info {
+        width: 100%;
+    }
+
+    .comic {
+        width: 100%;
+    }
+
+    [class^="panel"]  {
+        width: 100%;
+    }
+}

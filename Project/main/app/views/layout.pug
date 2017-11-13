@@ -1,0 +1,24 @@
+doctype html
+html
+    head
+        title= title
+        link(rel='stylesheet', href='/stylesheets/main.css')
+        link(rel='stylesheet', href='/stylesheets/forms.css')
+        link(rel='stylesheet', href='/stylesheets/mobile.css')
+        link(rel='stylesheet', href='/stylesheets/hover.css')
+        link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en')
+        link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css')
+        link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
+        meta(name='theme-color', content='#1c2b30')
+        meta(name='viewport' content='width=device-width, initial-scale=1')
+    body(class='mid-gray')
+        nav(class='dark-gray box-shadow')
+            ul(class='flex row-wrap')
+                li
+                    a(href='/') LOGO
+                li
+                    a(href='/') HOME
+                li(class='flex-right')
+                    block options
+        div(id='content', class='content')
+            block content

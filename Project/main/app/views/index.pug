@@ -1,0 +1,38 @@
+extends layout
+
+block options
+
+block content
+    div( class='flex row-wrap' id='flex-container')
+        div(class='panel-half white' id='home-title')
+            h1 Chirper
+            p Chirper is a place to share your thoughts with your community.
+        div(class='panel-half' id='home-forms')
+            div(class='box box-shadow box-radius')
+                h4 Log in
+                form(action='/login')
+                    div(class='field')
+                        label(class='label') Username
+                        div(class='control')
+                            input(class='input' type='text')
+                    div(class='field')
+                        label(class='label') Password
+                        div(class='control')
+                            input(class='input' type='password')
+                    div(class='field')
+                        input(class='submit hvr-fade box-radius cursor-pointer' type='submit' value='Log in')
+                    div(style='clear: both;')
+            div(class='box box-shadow box-radius')
+                h4 Register
+                form(action='/register')
+                    div(class='field')
+                        label(class='label') Username
+                        div(class='control')
+                            input(class='input' type='text')
+                    div(class='field')
+                        label(class='label') Password
+                        div(class='control')
+                            input(class='input' type='password')
+                    div(class='field')
+                        input(class='submit hvr-fade box-radius cursor-pointer' type='submit' value='Log in')
+                    div(style='clear: both;')
