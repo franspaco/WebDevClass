@@ -5,8 +5,10 @@ var indexController = require('../controllers/indexController');
 /* GET home page. */
 router.get('/', indexController.homeController);
 
-router.get('/login', indexController.login)
+router.get('/login', indexController.login);
 
-router.get('/register', indexController.register)
+router.get('/session', indexController.session);
+
+router.get('/register', indexController.register);
 
 module.exports = router;

@@ -42,3 +42,35 @@ exports.getAll = function (req,res){
         res.send(response);
     });
 };
+
+exports.insertGas = function (req, res) {
+    console.log(req.body.servicio);
+    var qry = 'insert into Gasolineras (nombre, direccion, latitud, longitud,' +
+        ' precio1, precio2, calidad, servicio, visitas) values ("'+
+        req.body.nombre + '","' +
+        req.body.direccion + '",' +
+        req.body.latitud + ',' +
+        req.body.longitud + ',' +
+        req.body.precio1 + ',' +
+        req.body.precio2 + ',' +
+        req.body.calidad + ',' +
+        req.body.servicio + ',1)';
+    console.log(qry);
+    db.get().query(qry,
+        function (err, result) {
+            var response = {};
+            var data = {};
+            if(err){
+                response.status = 'ERROR';
+                response.message = err;
+            }
+            else {
+                data.insertId = result.insertId;
+                response.status = 'SUCCESS';
+                response.message = "";
+                response.data = data;
+            }
+            res.send(response);
+        }
+    );
+}

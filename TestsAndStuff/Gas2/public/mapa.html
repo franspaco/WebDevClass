@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lol</title>
+    </head>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <body>
+        <form>
+            <input type="text" id="nombre" placeholder="nombre">
+            <input type="text" id="direccion" placeholder="direccion">
+            <input type="text" id="latitud" placeholder="latitud">
+            <input type="text" id="longitud" placeholder="longitud">
+            <input type="text" id="precio1" placeholder="precio1">
+            <input type="text" id="precio2" placeholder="precio2">
+            <input type="text" id="calidad" placeholder="calidad">
+            <input type="text" id="servicio" placeholder="servicio">
+            <input type="submit" id="submit" onclick="insertGas(event)">
+        </form>
+    </body>
+    <script>
+        function insertGas(event) {
+            event.preventDefault();
+            event.stopPropagation()
+
+            data = {
+                nombre:    $(nombre).val(),
+                direccion: $(direccion).val(),
+                latitud:   $(latitud).val(),
+                longitud:  $(longitud).val(),
+                precio1:   $(precio1).val(),
+                precio2:   $(precio2).val(),
+                calidad:   $(calidad).val(),
+                servicio:  $(servicio).val()
+            };
+
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                data: data,
+                url: "./gasolineras/insert",
+                beforeSend: function () {
+                    alert('Antes de enviar');
+                },
+                success: function (json) {
+                    alert('SUCCESS: ' + json.status + ', ' + json.data);
+                },
+                error: function () {
+                    alert('ERROR');
+                },
+                complete: function () {
+                    alert('Accion completada');
+                }
+            });
+        }
+    </script>
+</html>
