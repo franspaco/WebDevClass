@@ -13,6 +13,9 @@ var app = express();
 
 var db = require('./db');
 var session = require('express-session');
+var MySQLStore = require('express-mysql-session')(session);
+var sessionData = require('./session');
+var sessionStore = new MySQLStore(sessionData.options);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
@@ -32,15 +35,20 @@ db.connect( function (err) {
 
 /* SESSIONS */
 
-/*app.use(
+app.use(
     session({
-        secret: 'secret',
+        secret: 'WjhwAYiMnXoO8Lw',
         store: sessionStore,
         resave: false,
         saveUninitialized: false,
         unset: 'destroy'
     })
-);*/
+);
+
+app.use(function (req, res, next) {
+    //req.session.email = "lol";
+    next();
+});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

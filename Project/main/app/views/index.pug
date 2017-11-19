@@ -10,29 +10,38 @@ block content
         div(class='panel-half' id='home-forms')
             div(class='box box-shadow box-radius')
                 h4 Log in
-                form(action='/login')
+                form(action='/login', method='post')
                     div(class='field')
                         label(class='label') Username
                         div(class='control')
-                            input(class='input' type='text')
+                            input(class='input' type='text' name='username')
                     div(class='field')
                         label(class='label') Password
                         div(class='control')
-                            input(class='input' type='password')
+                            input(class='input' type='password' name='password')
                     div(class='field')
                         input(class='submit hvr-fade box-radius cursor-pointer' type='submit' value='Log in')
                     div(style='clear: both;')
             div(class='box box-shadow box-radius')
                 h4 Register
-                form(action='/register')
+                form(action='/register', method='post')
                     div(class='field')
                         label(class='label') Username
                         div(class='control')
-                            input(class='input' type='text')
+                            input(class='input' type='text' name='username')
+                    div(class='field')
+                        label(class='label') Email
+                        div(class='control')
+                            input(class='input' type='email' name='email')
                     div(class='field')
                         label(class='label') Password
                         div(class='control')
-                            input(class='input' type='password')
+                            input(class='input' type='password' name='password')
+                    div(class='field')
+                        label(class='label') Confirm password
+                        div(class='control')
+                            input(class='input' type='password' name='password2')
+
                     div(class='field')
                         input(class='submit hvr-fade box-radius cursor-pointer' type='submit' value='Log in')
                     div(style='clear: both;')
