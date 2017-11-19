@@ -16,6 +16,7 @@ var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 var sessionData = require('./session');
 var sessionStore = new MySQLStore(sessionData.options);
+var emailer = require('./email');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
@@ -45,9 +46,16 @@ app.use(
     })
 );
 
-app.use(function (req, res, next) {
-    //req.session.email = "lol";
-    next();
+/* EMAILER */
+emailer.connect();
+
+emailer.get().verify(function (error, success) {
+    if(error){
+        console.log(error);
+    }
+    else{
+        console.log('Email connection active.');
+    }
 });
 
 // uncomment after placing your favicon in /public

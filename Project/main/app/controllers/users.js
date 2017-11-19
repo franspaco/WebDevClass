@@ -1,5 +1,6 @@
 
 var db = require('../../db.js');
+var emailer = require('../../email');
 var bcrypt = require('bcrypt');
 var crypto = require("crypto");
 
@@ -112,6 +113,7 @@ exports.create = function (req, res) {
                         data.insertId = result.insertId;
                         response.status = 1;
                         data.message = "";
+                        emailer.get()
                     }
                     response.data = data;
                     res.send(response);

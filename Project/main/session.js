@@ -1,7 +1,10 @@
+
+var secret = require('./secrets');
+
 exports.options = {
-    host: 'localhost',
-    user: 'root',
-    password: 'toor',
+    host: secret.db.host,
+    user: secret.db.user,
+    password: secret.db.password,
     port: '3306',
-    database: 'gasolineras'
+    database: 'chirper'
 };

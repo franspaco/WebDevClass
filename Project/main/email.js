@@ -1,12 +1,24 @@
+var nodemailer = require('nodemailer');
+var secret = require('./secrets');
 
+var mailer = {};
 
-exports.poolConfig = {
+poolConfig = {
     pool: true,
-    host: 'franspaco.com',
+    host: secret.email.host,
     port: '465',
     secure: true,
     auth: {
-        user: '...',
-        pass: '...'
+        user: secret.email.user,
+        pass: secret.email.pass
     }
+};
+
+exports.connect = function () {
+    mailer = nodemailer.createTransport(poolConfig);
+};
+
+
+exports.get = function () {
+    return mailer
 };
