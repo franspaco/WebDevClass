@@ -62,3 +62,10 @@
 button, input, select, textarea {
     margin: 0;
 }
+
+.errors {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    color: #F44336;
+    font-style: italic;
+}

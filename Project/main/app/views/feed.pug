@@ -1,4 +1,18 @@
-extends layout
+extends layout_user
+
 
 block content
-    h1 YOU ARE LOGEGD IN!
+    div(id='say-something' class='box box-shadow box-radius')
+        h4 Say something!
+        p(class='info') Your current
+
+    each post in posts
+        div(class='box box-shadow box-radius')
+            div
+                span(class='username')= post.username
+                span(class='dist') #{post.dist.toFixed(2)} km away
+                span(class='dates') <br> #{post.timestamp}
+            div
+                p=post.content
+                if(!(post.attach===""))
+                    img(src=post.attach class='post-img')

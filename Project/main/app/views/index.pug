@@ -1,7 +1,5 @@
 extends layout
 
-block options
-
 block content
     div( class='flex row-wrap' id='flex-container')
         div(class='panel-half white' id='home-title')
@@ -10,38 +8,39 @@ block content
         div(class='panel-half' id='home-forms')
             div(class='box box-shadow box-radius')
                 h4 Log in
+                div(class='errors' id='error_login')
                 form(action='/login', method='post')
                     div(class='field')
                         label(class='label') Username
                         div(class='control')
-                            input(class='input' type='text' name='username')
+                            input(class='input' type='text' name='username' id='usr_login' required)
                     div(class='field')
                         label(class='label') Password
                         div(class='control')
-                            input(class='input' type='password' name='password')
+                            input(class='input' type='password' name='password' id='pswd_login' required)
                     div(class='field')
-                        input(class='submit hvr-fade box-radius cursor-pointer' type='submit' value='Log in')
+                        input(class='submit hvr-fade box-radius cursor-pointer' type='submit' value='Log in' onclick='logInUser(event)')
                     div(style='clear: both;')
             div(class='box box-shadow box-radius')
                 h4 Register
+                div(class='errors' id='error_register')
                 form(action='/register', method='post')
                     div(class='field')
                         label(class='label') Username
                         div(class='control')
-                            input(class='input' type='text' name='username')
+                            input(class='input' type='text' name='username' id='usr_register' required)
                     div(class='field')
                         label(class='label') Email
                         div(class='control')
-                            input(class='input' type='email' name='email')
+                            input(class='input' type='email' name='email' id='email_register' required)
                     div(class='field')
                         label(class='label') Password
                         div(class='control')
-                            input(class='input' type='password' name='password')
+                            input(class='input' type='password' name='password' id='pswd_register' required)
                     div(class='field')
                         label(class='label') Confirm password
                         div(class='control')
-                            input(class='input' type='password' name='password2')
-
+                            input(class='input' type='password' name='password2' id='pswd2_register' required)
                     div(class='field')
-                        input(class='submit hvr-fade box-radius cursor-pointer' type='submit' value='Log in')
+                        input(class='submit hvr-fade box-radius cursor-pointer' type='submit' value='Log in' onclick='registerUser(event)')
                     div(style='clear: both;')

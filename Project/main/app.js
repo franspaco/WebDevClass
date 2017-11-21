@@ -52,6 +52,7 @@ emailer.connect();
 emailer.get().verify(function (error, success) {
     if(error){
         console.log(error);
+        process.exit(1);
     }
     else{
         console.log('Email connection active.');

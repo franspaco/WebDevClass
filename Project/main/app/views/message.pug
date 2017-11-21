@@ -1,0 +1,9 @@
+extends layout
+
+
+block content
+    div(class='box box-shadow box-radius')
+        h4= heading
+        p=message
+        if link
+            a(href=link.link)= link.text
