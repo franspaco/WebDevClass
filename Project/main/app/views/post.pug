@@ -1,0 +1,17 @@
+
+mixin post(post)
+    div(class='box box-shadow box-radius')
+        div
+            var
+            a(class='username hvr-grow' href="/u/" + post.username)= post.username
+            span(class='dist') #{post.dist.toFixed(2)} km away
+            a(class='dates' href="/u/" + post.username + "/" + post.idPost) <br> #{post.timestamp}
+        div
+            p(class='post-content')=post.content
+            if(post.attach && !(post.attach===""))
+                img(src="/images/" + post.attach class='post-img box-radius')
+            div(class='float-right litCounter' onclick='litPost(' + post.idPost + ')')
+                span(id="lits"+post.idPost)= post.litCount
+                - var like = post.usrLits ? 'lited' : 'unlited';
+                i(class="fa fa-fire " + like aria-hidden="true" id="post"+post.idPost)
+            div(style='clear: both;')

@@ -1,0 +1,30 @@
+
+
+extends layout
+
+block content
+    div(class='box box-shadow box-radius')
+        h4= heading
+        p=message
+        div(class='errors' id='error_mes')
+        form
+            if type === 'password'
+                div(class='field')
+                    label(class='label') Password
+                    div(class='control')
+                        input(class='input' type='password' id='pswd' required)
+                div(class='field')
+                    label(class='label') Confirm Password
+                    div(class='control')
+                        input(class='input' type='password' id='pswd2' required)
+                div(class='field')
+                    input(class='submit hvr-fade box-radius cursor-pointer' type='submit' value='Reset password' onclick='resetPassword(event)')
+                div(style='clear: both;')
+            if type === 'username'
+                div(class='field')
+                    label(class='label') Username
+                    div(class='control')
+                        input(class='input' type='email' id='username' required)
+                div(class='field')
+                    input(class='submit hvr-fade box-radius cursor-pointer' type='submit' value='Send me an email' onclick='recover(event)')
+                div(style='clear: both;')

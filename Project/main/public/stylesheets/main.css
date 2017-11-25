@@ -24,6 +24,7 @@ nav {
     width: 100%;
     position: fixed;
     top: 0;
+    z-index: 99;
 }
 
 nav > ul {
@@ -87,13 +88,28 @@ nav > ul > li > a{
     margin-right: 25px;
 }
 
+.usr_title{
+    text-align: center;
+    color: white;
+    font-size: 30pt;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
     display: block;
 }
 
+#forgot-link {
+    font-size: 0.8em;
+    color: #1565C0;
+}
+
 /* GENERIC TYPES */
+
+.float-right{
+    float: right;
+}
 
 .dropdown {
     position: relative;
@@ -186,8 +202,10 @@ footer, header, hgroup, menu, nav, section {
 }
 
 .username {
-    font-size: 1.2em;
+    font-size: 1.3em;
     margin-right: 20px;
+    text-decoration: none;
+    color: #FF9800;
 }
 
 .dist {
@@ -197,13 +215,46 @@ footer, header, hgroup, menu, nav, section {
 }
 
 .dates {
+    text-decoration: none;
     font-size: 0.9em;
     color: gray;
     margin-right: 20px;
 }
 
+.dates:hover {
+    text-decoration: underline;
+}
+
 .post-img {
     width: 100%;
 }
+
+.litCounter {
+    font-size: 1.3em;
+    cursor: pointer;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;          /* Likely future */
+}
+
+.litCounter > span {
+    margin-right: 10px;
+}
+
+.lited {
+    color: #FF5722;
+}
+
+.unlited {
+    color: #757575;
+}
+
+.post-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
 
 

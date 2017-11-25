@@ -1,0 +1,8 @@
+extends layout_user
+include post
+
+
+block content
+    div(class='usr_title')= displayUsername
+    each post in posts
+        +post(post)

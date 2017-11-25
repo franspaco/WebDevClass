@@ -18,6 +18,7 @@ block content
                         label(class='label') Password
                         div(class='control')
                             input(class='input' type='password' name='password' id='pswd_login' required)
+                    a(href='/forgot' id='forgot-link') Forgot your password?
                     div(class='field')
                         input(class='submit hvr-fade box-radius cursor-pointer' type='submit' value='Log in' onclick='logInUser(event)')
                     div(style='clear: both;')
@@ -42,5 +43,5 @@ block content
                         div(class='control')
                             input(class='input' type='password' name='password2' id='pswd2_register' required)
                     div(class='field')
-                        input(class='submit hvr-fade box-radius cursor-pointer' type='submit' value='Log in' onclick='registerUser(event)')
+                        input(class='submit hvr-fade box-radius cursor-pointer' type='submit' value='Register' onclick='registerUser(event)')
                     div(style='clear: both;')

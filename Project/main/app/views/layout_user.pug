@@ -2,8 +2,9 @@
 extends layout
 
 block options
-    span(id='usr_score')= score
-    div(class='dropdown')
-        span(id='usr_menu')= user
-        div(class='dropdown-content box-shadow box-radius')
-            div(onclick='logOut()') Log out
+    if(score && user)
+        span(id='usr_score')= score
+        div(class='dropdown')
+            span(id='usr_menu')= user
+            div(class='dropdown-content box-shadow box-radius')
+                div(onclick='logOut()') Log out

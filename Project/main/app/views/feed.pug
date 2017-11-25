@@ -1,18 +1,21 @@
 extends layout_user
-
+include post
 
 block content
     div(id='say-something' class='box box-shadow box-radius')
         h4 Say something!
-        p(class='info') Your current
+        div='Your current reach is ' + score + 'km'
+        form(method='post' action='/newPost' encType="multipart/form-data")
+            div(class='field')
+                div(class='control')
+                    input(class='input' type='text' name='content' id='post_content' required onkeyup='countChars(this)')
+            div(style='text-align: right;' id='counter') 0/256
+            div Add an image
+            input(type='file' name='image' id='post_img')
+
+            div(class='field')
+                input(class='submit hvr-fade box-radius cursor-pointer' type='submit' value='Post')
+            div(style='clear: both;')
 
     each post in posts
-        div(class='box box-shadow box-radius')
-            div
-                span(class='username')= post.username
-                span(class='dist') #{post.dist.toFixed(2)} km away
-                span(class='dates') <br> #{post.timestamp}
-            div
-                p=post.content
-                if(!(post.attach===""))
-                    img(src=post.attach class='post-img')
+        +post(post)
