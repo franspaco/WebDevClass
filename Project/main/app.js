@@ -17,6 +17,10 @@ var MySQLStore = require('express-mysql-session')(session);
 var sessionData = require('./session');
 var sessionStore = new MySQLStore(sessionData.options);
 var emailer = require('./email');
+var passport = require('passport');
+var secrets = require('./secrets');
+var FacebookStrategy = require('passport-facebook').Strategy;
+var user = require('./app/models/user');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
@@ -58,6 +62,57 @@ emailer.get().verify(function (error, success) {
         console.log('Email connection active.');
     }
 });
+
+/* FACEBOOK */
+passport.use(new FacebookStrategy( {
+        clientID: secrets.fbAuth.clientID,
+        clientSecret: secrets.fbAuth.clientSecret,
+        //callbackURL: "https://localhost/facebook/callback",
+        //callbackURL: "https://chirper.franspaco.com/facebook/callback",
+        callbackURL: "https://192.168.0.152/facebook/callback",
+        profileFields: ['id', 'displayName', 'emails'],
+        passReqToCallback: true
+    },
+    function(req, accessToken, refreshToken, profile, cb) {
+        if(profile){
+            console.log(profile);
+            let fbProfile = {
+                name: profile.displayName,
+                email: profile.emails[0].value,
+                id: profile.id
+            };
+            console.log(fbProfile.email);
+            user.User.findOrCreateFB(fbProfile,
+                function (err, userResult) {
+                    if(err){
+                        console.log('Failed to register fb user');
+                        console.log(err);
+                        cb();
+                    }
+                    else{
+
+                        if(userResult.type === 'created'){
+                            console.log('FB USER CREATED');
+                            req.session.idUser = userResult.user.insertId;
+                            req.session.username = fbProfile.name;
+                            req.session.userScore = user.defScore;
+                        }
+                        else if(userResult.type === 'found'){
+                            console.log('FB USER FOUND');
+                            req.session.idUser = userResult.user.idUser;
+                            req.session.username = userResult.user.username;
+                            req.session.userScore = userResult.user.score;
+                        }
+                        //console.log(req.session);
+                        cb();
+                    }
+                });
+        }else{
+            console.log('wat??');
+            cb();
+        }
+    }
+));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

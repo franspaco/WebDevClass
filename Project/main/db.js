@@ -23,9 +23,9 @@ exports.get = function () {
 };
 
 exports.queries = {
-    register: function (username, email, hash, token, score, callback) {
-        let query = 'INSERT INTO User (username, email, pswd_hash, email_token, score) values (?,?,?,?,?)';
-        pool.query(query,[username, email, hash, token, score], callback);
+    register: function (username, email, hash, token, score, fbId, callback) {
+        let query = 'INSERT INTO User (username, email, pswd_hash, email_token, score, fbId) values (?,?,?,?,?,?)';
+        pool.query(query,[username, email, hash, token, score, fbId], callback);
     },
     posts: function(lat, lon, usrId, callback){
         let query = `
@@ -113,6 +113,10 @@ exports.queries = {
     getUserByName: function(name, callback){
         let query = 'SELECT * FROM User WHERE username=?';
         pool.query(query, [name], callback);
+    },
+    getUserByFBID: function (id, callback) {
+        let query = 'SELECT * FROM User WHERE fbId=?';
+        pool.query(query, [id], callback);
     },
     validateEmailToken: function(token, callback){
         let query = 'UPDATE User SET verified=1, email_token=null WHERE email_token=?';

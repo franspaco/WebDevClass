@@ -4,7 +4,7 @@ include post
 block content
     div(id='say-something' class='box box-shadow box-radius')
         h4 Say something!
-        div='Your current reach is ' + score + 'km'
+        div Your current reach is #{score}km <br> You are in: #{lat}, #{lon}
         form(method='post' action='/newPost' encType="multipart/form-data")
             div(class='field')
                 div(class='control')

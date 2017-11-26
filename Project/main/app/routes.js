@@ -18,9 +18,15 @@ router.get('/', homeController.getHome);
 //Login
 router.post('/login', userController.login);
 
+//FB login
+router.get('/facebook/login', userController.fbLogin);
+router.get('/facebook/callback', userController.fbCallback);
+router.get('/location', userController.askLocation);
+router.post('/location', userController.getLocation);
+
 //Logout
 router.post('/logout', userController.logout);
-router.get('/logout', userController.logout);
+router.get('/logout', userController.logoutGet);
 
 //Register
 router.post('/register', userController.create);

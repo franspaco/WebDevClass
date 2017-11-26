@@ -1,14 +1,15 @@
 
 var db = require('../../db.js');
 var emailer = require('../../email');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 var crypto = require("crypto");
+var passport = require('passport');
+var user = require('../models/user');
 
 function isBlank(str) {
     return (!str || /^\s*$/.test(str));
 }
 
-var defaultScore = 5;
 
 exports.login = function (req, res) {
     console.log("Log-in attempt");
@@ -38,12 +39,11 @@ exports.login = function (req, res) {
                         data.message = err;
                     }
                     else {
-                        console.log(result);
+                        //console.log(result);
                         var usr = result[0];
                         if(usr){
                             if(bcrypt.compareSync(post.password, usr.pswd_hash)){
                                 console.log("GOOD LOGIN");
-                                console.log(usr);
                                 response.status = 1;
                                 data.message = 'OK';
                                 req.session.idUser = usr.idUser;
@@ -76,6 +76,14 @@ exports.login = function (req, res) {
     }
 };
 
+exports.logoutGet = function (req, res) {
+    if (req.session && req.session.username) {
+        req.session.destroy();
+
+    }
+    res.redirect('/');
+};
+
 exports.logout = function (req, res) {
     if (req.session && req.session.username) {
         req.session.destroy();
@@ -102,7 +110,7 @@ exports.create = function (req, res) {
     }
     else {
         var post = req.body;
-        console.log(post);
+        //console.log(post);
         if(!isBlank(post.username)
             && !isBlank(post.pswd)
             && !isBlank(post.email)
@@ -114,7 +122,7 @@ exports.create = function (req, res) {
             var salt = bcrypt.genSaltSync(10);
             var hash = bcrypt.hashSync(post.pswd, salt);
             var token = crypto.randomBytes(20).toString('hex');
-            db.queries.register(post.username, post.email, hash, token, defaultScore,
+            db.queries.register(post.username, post.email, hash, token, user.defScore, null,
                 function (err, result) {
                     if (err) {
                         response.status = 0;
@@ -128,7 +136,7 @@ exports.create = function (req, res) {
                     else {
                         req.session.idUser = result.insertId;
                         req.session.username = post.username;
-                        req.session.userScore = defaultScore;
+                        req.session.userScore = user.defScore;
                         req.session.lat = post.latitude;
                         req.session.lon = post.longitude;
                         data.insertId = result.insertId;
@@ -163,7 +171,7 @@ exports.create = function (req, res) {
 
 exports.validate = function (req, res) {
     if(req.query.code){
-        console.log(req.query.code);
+        //console.log(req.query.code);
         db.queries.validateEmailToken(req.query.code,
             function (err, result) {
                 if(err || result.changedRows === 0){
@@ -220,7 +228,7 @@ exports.showUser = function(req, res){
                     });
                 }
                 else {
-                    console.log(result);
+                    //console.log(result);
                     res.render('user_feed', {
                         displayUsername: uname,
                         posts: result,
@@ -294,7 +302,7 @@ exports.recover = function (req, res) {
                     else{
                         // Found user
                         let user = result[0];
-                        console.log(user.email);
+                        //console.log(user.email);
                         let token = crypto.randomBytes(30).toString('hex');
                         db.queries.setRecoverToken(post.username, token,
                             function (err, result) {
@@ -400,6 +408,50 @@ exports.reset = function (req, res) {
     }
 };
 
+exports.fbLogin = passport.authenticate('facebook',{ scope: ['email']});
+
+exports.fbCallback =
+    passport.authenticate('facebook', {
+        failureRedirect: '/',
+        successRedirect : '/location'
+    });
+
+exports.askLocation = function (req, res) {
+    console.log(req.session);
+    res.render('askLocation',{
+        heading: 'Please provide your location',
+        message: '',
+        link: {
+            link: '/',
+            text: 'Click here to go back'
+        }
+    });
+};
+
+exports.getLocation = function (req, res) {
+    let post = req.body;
+    if( !isBlank(post.latitude) &&
+        !isBlank(post.longitude)){
+        req.session.lat = post.latitude;
+        req.session.lon = post.longitude;
+        response = {
+            status: 1,
+            data: {
+                message: 'Ok'
+            }
+        };
+        res.send(response);
+    }else{
+        response = {
+            status: 0,
+            data: {
+                message: 'Invalid data!'
+            }
+        };
+        res.send(response);
+    }
+};
+
 function resetPasswordEmail(to, token, result){
     let html = `
         <html>
@@ -432,3 +484,4 @@ function sendEmail(to, subject, html, result){
     console.log("EMAIL GETS SENT HERE");
     emailer.get().sendMail(mailOptions, result);
 }
+

@@ -1,14 +1,15 @@
 {
-  "name": "main",
+  "name": "Chirper",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+    "startHTTPS": "node ./bin/wwws.js",
     "nodemon": "nodemon ./bin/www",
     "nodemonHTTPS": "nodemon ./bin/wwws.js"
   },
   "dependencies": {
-    "bcrypt": "^1.0.3",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
     "crypto": "^1.0.1",
@@ -20,6 +21,8 @@
     "multer": "^1.3.0",
     "mysql": "^2.15.0",
     "nodemailer": "^4.4.0",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
     "pug": "^2.0.0-rc.4",
     "serve-favicon": "~2.4.5"
   }

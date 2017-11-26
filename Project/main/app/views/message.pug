@@ -4,6 +4,6 @@ extends layout_user
 block content
     div(class='box box-shadow box-radius')
         h4= heading
-        p=message
+        p(id='message_message')=message
         if link
             a(href=link.link)= link.text
