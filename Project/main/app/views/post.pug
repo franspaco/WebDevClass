@@ -4,7 +4,9 @@ mixin post(post)
         div
             var
             a(class='username hvr-grow' href="/u/" + post.username)= post.username
-            span(class='dist') #{post.dist.toFixed(2)} km away
+            span(class='dist') #{post.dist.toFixed(2)} km away |
+                i(class="fa fa-bullhorn" aria-hidden="true")
+                span #{post.score.toFixed(2)} km
             a(class='dates' href="/u/" + post.username + "/" + post.idPost) <br> #{post.timestamp}
         div
             p(class='post-content')=post.content

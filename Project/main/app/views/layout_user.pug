@@ -4,9 +4,10 @@ extends layout
 block options
     if(score && user)
         span(id='usr_score')= score
-        div(class='dropdown')
+        div(class='dropdown hvr-bubble-bottom')
             span(id='usr_menu')= user
             div(class='dropdown-content box-shadow box-radius')
-                div
+                div(class='hvr-forward')
                     a(href='/location') Update location
-                div(onclick='logOut()') Log out
+                div(onclick='logOut()')
+                    a(class='hvr-forward') LogOut

@@ -29,7 +29,7 @@ exports.queries = {
     },
     posts: function(lat, lon, usrId, callback){
         let query = `
-            SELECT username, idPost, content, attach, timestamp, Post.score, IFNULL(litCount,0) as litCount, dist, coalesce(usrLikes, 0) AS usrLits
+            SELECT username, idPost, content, attach, timestamp, Post.score + IFNULL(litCount, 0)/100 as score, IFNULL(litCount,0) as litCount, dist, coalesce(usrLikes, 0) AS usrLits
             FROM (
                 select *, distancia(?,?,latitude,longitude) as dist
                 FROM Post
@@ -42,14 +42,14 @@ exports.queries = {
                 group by post
             ) AS postLits
             ON Post.idPost = postLits.post
-            WHERE dist < Post.score
+            WHERE dist < Post.score + IFNULL(litCount, 0)/100
             ORDER BY timestamp DESC
             `;
         pool.query(query, [lat, lon, usrId], callback);
     },
     postById: function (id, lat, lon, usrId, callback) {
         let query = `
-            SELECT username, idPost, content, attach, timestamp, Post.score, IFNULL(litCount,0) as litCount, dist, coalesce(usrLikes, 0) AS usrLits
+            SELECT username, idPost, content, attach, timestamp, Post.score + IFNULL(litCount, 0)/100 as score, IFNULL(litCount,0) as litCount, dist, coalesce(usrLikes, 0) AS usrLits
             FROM (
                 select *, distancia(?,?,latitude,longitude) as dist
                 FROM Post
@@ -69,7 +69,7 @@ exports.queries = {
     },
     postByUser: function (username, lat, lon, usrId, callback) {
         let query = `
-            SELECT username, idPost, content, attach, timestamp, Post.score, IFNULL(litCount,0) as litCount, dist, coalesce(usrLikes, 0) AS usrLits
+            SELECT username, idPost, content, attach, timestamp, Post.score + IFNULL(litCount, 0)/100 as score, IFNULL(litCount,0) as litCount, dist, coalesce(usrLikes, 0) AS usrLits
             FROM (
                 select *, distancia(?,?,latitude,longitude) as dist
                 FROM Post
